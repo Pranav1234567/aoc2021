@@ -1,3 +1,15 @@
+def get_decimal(binary):
+    s = binary
+    multiplier = 1
+    result = 0
+
+    while len(s) > 0:
+        result += multiplier * int(s[-1])
+        multiplier *= 2
+        s = s[:-1]
+
+    return result
+
 with open('day3_input.txt') as f:
     lines = f.readlines()
     #11 places
@@ -9,14 +21,7 @@ with open('day3_input.txt') as f:
             if line[j] == '1':
                 arr_ones[j] += 1
 
-    result1 = ""
-    result2 = ""
-    for a in arr_ones:
-        if a >= 500:
-            result1 += "1"
-            result2 += "0"
-        else:
-            result1 += "0"
-            result2 += "1"
-    print(result1)
-    print(result2)
+    result1 = get_decimal("".join(list(map(lambda x: "1" if x >= 500 else "0", arr_ones))))
+    result2 = get_decimal("".join(list(map(lambda x: "0" if x >= 500 else "1", arr_ones))))
+
+    print(result1 * result2)
